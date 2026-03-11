@@ -1,0 +1,45 @@
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
+
+namespace lab1
+{
+    [TestClass]
+    public class Task6Tests
+    {
+        [TestMethod]
+        public void CalculateExpression_ValidInputs_CalculatesCorrectly()
+        {
+            // Якщо a = 2, b = 1
+            // 5 + 1/(1+1) + (2-1)/(2+1) = 5 + 0.5 + 1/3 = 5.833333...
+            double actual = Task6.CalculateExpression(2, 1);
+            
+            // Використовуємо дельту 0.00001 для порівняння дробів
+            Assert.AreEqual(5.833333, actual, 0.00001);
+        }
+
+        [TestMethod]
+        public void CalculateExpression_ZeroB_CalculatesCorrectly()
+        {
+            // Якщо a = 1, b = 0
+            // 5 + 0/(0+1) + (1-0)/(1+0) = 5 + 0 + 1 = 6
+            double actual = Task6.CalculateExpression(1, 0);
+            Assert.AreEqual(6.0, actual, 0.00001);
+        }
+
+        [TestMethod]
+        public void CalculateExpression_DivideByZero_ThrowsException()
+        {
+            try
+            {
+                // Якщо a = 5 і b = -5, то їхня сума a + b = 0.
+                // Має виникнути помилка ділення на нуль.
+                Task6.CalculateExpression(5, -5);
+                Assert.Fail("Очікувалася помилка DivideByZeroException.");
+            }
+            catch (DivideByZeroException)
+            {
+                // Помилку зловлено успішно, тест пройдено!
+            }
+        }
+    }
+}
