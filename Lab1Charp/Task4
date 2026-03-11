@@ -1,0 +1,42 @@
+using System;
+
+namespace lab1
+{
+    public class Task4
+    {
+        public static DateTime GetUnknownDate(int n)
+        {
+            // За умовою n має бути строго більшим за 0
+            if (n <= 0)
+            {
+                throw new ArgumentException("Помилка: кількість днів n має бути більшою за нуль.");
+            }
+
+            // Беремо сьогоднішню дату і віднімаємо n днів
+            return DateTime.Today.AddDays(-n);
+        }
+
+        public static void Execute()
+        {
+            Console.Write("Завдання 4.10. Введіть кількість днів n (n > 0): ");
+            
+            if (int.TryParse(Console.ReadLine(), out int n))
+            {
+                try
+                {
+                    DateTime resultDate = GetUnknownDate(n);
+                    // Виводимо дату у зручному форматі: день.місяць.рік
+                    Console.WriteLine($"Невідома дата: {resultDate.ToString("dd.MM.yyyy")}");
+                }
+                catch (ArgumentException ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+            }
+            else
+            {
+                Console.WriteLine("Помилка вводу: очікується ціле число.");
+            }
+        }
+    }
+}
